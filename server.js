@@ -5,9 +5,10 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const users = require("./users");
 const transactions = require("./transactions");
-const PORT = process.env.PORT
+const PORT = process.env.PORT ?? 5000;
 
 app.use(express.json());
+app.use(express.static("./frontend/build"))
 
 app.get("/", (req, res) => {
   res.send("working");
