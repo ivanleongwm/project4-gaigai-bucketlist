@@ -6,33 +6,16 @@ const jwt = require("jsonwebtoken");
 const users = require("./users");
 const transactions = require("./transactions");
 const PORT = process.env.PORT ?? 5000;
+const path = require("path")
 
 app.use(express.json());
 app.use(express.static("./frontend/build"))
 
-app.get("/", (req, res) => {
-  res.send("working");
+app.get("/api/hi", (req, res) => {
+  res.json({ msg: "Hello World" });
 });
 
-const verifyToken = (req, res, next) => {
-  try {
-    const authToken = req.headers.token;
-
-    // validate the token
-    const decoded = jwt.verify(authToken, process.env.TOKEN_SECRET);
-
-    // if valid, retrieve the username from the token
-    const username = decoded.data;
-
-    req.user = username;
-
-    next();
-  } catch (error) {
-    res.sendStatus(403);
-  }
-};
-
-app.post("/login", (req, res) => {
+app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
 
   if (users[username].password === password) {
@@ -54,16 +37,53 @@ app.post("/login", (req, res) => {
   }
 });
 
-app.post("/posts", verifyToken, (req, res) => {
+/*
+const { username, password } = req.body;
+  console.log(username, password);
+  if (username === "admin" && password === "admin") {
+    const payload = { username };
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+    res.json({ token: token });
+  } else {
+    res.status(403).json({ msg: "Invalid credentials" });
+  }
+
+*/
+
+const verifyToken = (req, res, next) => {
+  try {
+    const authToken = req.headers.token;
+
+    // validate the token
+    const decoded = jwt.verify(authToken, process.env.TOKEN_SECRET);
+
+    // if valid, retrieve the username from the token
+    const username = decoded.data;
+
+    req.user = username;
+
+    next();
+  } catch (error) {
+    res.sendStatus(403);
+  }
+};
+
+app.post("/api/posts", verifyToken, (req, res) => {
   const username = req.user;
   const userTransactions = transactions[username];
   res.status(200).json({ transactions: userTransactions });
 });
 
-app.post("/logout", (req,res) => {
+app.post("/api/logout", (req,res) => {
     res.clearCookie("NewCookie").send("cookie dead");
 });
 
+app.get("/*", (req,res) => {
+  res.sendFile(path.join(__dirname, "./frontend/build/index.html"));
+})
+
 app.listen(PORT, () => {
-  console.log("listening at port 3000");
+  console.log(`listening at port ${PORT}`);
 });
