@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server.js",
+    "frontend:install":"echo 'installing'",
+    "frontend:build":"echo 'building'",
+    "heroku-postbuild": "npm run frontend:install && npm run frontend:build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
