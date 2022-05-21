@@ -1,20 +1,32 @@
 require("dotenv").config();
 
 const express = require("express");
-const app = express();
+const morgan = require("morgan");
+const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 const users = require("./users");
 const transactions = require("./transactions");
-const PORT = process.env.PORT ?? 5000;
+
 const path = require("path")
+const UserController = require("./controllers/userController")
+
+const app = express();
+const PORT = process.env.PORT ?? 4000;
+const mongoURI = process.env.MONGO_URI;
+// const db = mongoose.connection;
+mongoose.connect(mongoURI, {}, () => {
+    console.log("Connected~")
+})
 
 app.use(express.json());
+app.use("/api/users", UserController);
 app.use(express.static("./frontend/build"))
 
 app.get("/api/hi", (req, res) => {
   res.json({ msg: "Hello World" });
 });
 
+/*
 app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
 
@@ -36,6 +48,7 @@ app.post("/api/login", (req, res) => {
     res.status(403).send("unauthorised");
   }
 });
+*/
 
 /*
 const { username, password } = req.body;
