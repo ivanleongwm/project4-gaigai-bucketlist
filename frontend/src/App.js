@@ -5,6 +5,8 @@ import {
 } from "react-router-dom";
 
 import HeaderBar from './components/HeaderBar/HeaderBar'
+import LoginForm from './components/Login/Login'
+
 import "bootstrap/dist/css/bootstrap.min.css"
 
 const Home = () => {
@@ -13,7 +15,7 @@ const Home = () => {
 
 const Login = () => {
   const handleLogin = () => {
-    fetch("/api/login", { 
+    fetch("/api/users/login", { 
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -37,6 +39,7 @@ function App() {
   return (
     <BrowserRouter>
     <HeaderBar />
+    <LoginForm />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="login" element={<Login />}></Route>
