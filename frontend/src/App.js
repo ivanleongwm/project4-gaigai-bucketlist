@@ -4,7 +4,8 @@ import {
   Route,
 } from "react-router-dom";
 
-import Map from './components/map'
+import HeaderBar from './components/HeaderBar/HeaderBar'
+import "bootstrap/dist/css/bootstrap.min.css"
 
 const Home = () => {
   return "Home"
@@ -35,8 +36,9 @@ const People = () => {
 function App() {
   return (
     <BrowserRouter>
+    <HeaderBar />
       <Routes>
-        <Route path="/" element={<Map />}></Route>
+        <Route path="/" element={<Home />}></Route>
         <Route path="login" element={<Login />}></Route>
         <Route path="people" element={<People />}></Route>
       </Routes>
