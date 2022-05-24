@@ -21,8 +21,14 @@ function LoginForm() {
               username: username, 
               password: password})
       })
-        .then((res) => res.json())
-        .then((res) => console.log(res));
+        .then((res) => {
+            console.log("response line",res)
+            return res.json()
+        })
+        .then((data) => {
+            console.log("jwt data",data.jwt)
+            sessionStorage.setItem("jwt", data.jwt)
+        });
       }    
 
     return (

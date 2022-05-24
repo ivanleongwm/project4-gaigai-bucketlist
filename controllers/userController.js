@@ -49,7 +49,7 @@ router.post("/login", async (req, res) => {
       res
          .status(200)
          .cookie("NewCookie", newToken, { path: "/" , httpOnly: true })
-         .send("cookie");
+         .send({"jwt": newToken});
     } else {
       res.status(403).send("unauthorised");
     }
