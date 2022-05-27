@@ -24,8 +24,7 @@ function LoginForm() {
             return res.json()
         })
         .then((data) => {
-            console.log("jwt data",data.jwt)
-            sessionStorage.setItem("jwt", data.jwt)
+            console.log("username",data.username)
         });
       }    
 

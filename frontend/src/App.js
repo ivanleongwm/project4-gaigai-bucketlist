@@ -7,12 +7,7 @@ import {
 import {useState, useEffect} from 'react';
 import HeaderBar from './components/HeaderBar/HeaderBar'
 import LoginForm from './components/Login/Login'
-<<<<<<< HEAD
-=======
-import Secret from './components/Secret/Secret'
-
->>>>>>> a77be52c2b76cd42ef213a59b9a6e75df863a6c9
-import "bootstrap/dist/css/bootstrap.min.css"
+import Secret from './components/secret/secret'
 
 const Home = () => {
   return "Home"

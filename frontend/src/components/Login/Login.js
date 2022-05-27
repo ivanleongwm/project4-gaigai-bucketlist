@@ -19,7 +19,6 @@ function LoginForm({setLoggedInUser}) {
           body: JSON.stringify({
               username: username, 
               password: password})
-<<<<<<< HEAD
         })
         .then((res) => {
             return res.json()
@@ -28,16 +27,6 @@ function LoginForm({setLoggedInUser}) {
             console.log("data",data.jwt)
             sessionStorage.setItem("jwt", data.jwt);
             setLoggedInUser(username)
-=======
-      })
-        .then((res) => {
-            console.log("response line",res)
-            return res.json()
-        })
-        .then((data) => {
-            console.log("jwt data",data.jwt)
-            sessionStorage.setItem("jwt", data.jwt)
->>>>>>> a77be52c2b76cd42ef213a59b9a6e75df863a6c9
         });
       }    
 
