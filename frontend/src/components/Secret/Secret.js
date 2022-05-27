@@ -3,7 +3,7 @@ import { Form , Button, Row , Col} from "react-bootstrap"
 import { useState, useEffect } from "react";
 
 
-function LoginForm() {
+function Secret() {
 
     const handleLogin = (event) => {
         console.log(event)
@@ -37,4 +37,4 @@ function LoginForm() {
     )
 }
 
-export default LoginForm;
+export default Secret;
