@@ -7,7 +7,6 @@ import {
 import {useState, useEffect} from 'react';
 import HeaderBar from './components/HeaderBar/HeaderBar'
 import LoginForm from './components/Login/Login'
-import Secret from './components/secret/secret'
 
 const Home = () => {
   return "Home"
@@ -27,7 +26,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="people" element={<People />}></Route>
-        <Route path="secret" element={<Secret />}></Route>
       </Routes>
     </BrowserRouter>
   );
