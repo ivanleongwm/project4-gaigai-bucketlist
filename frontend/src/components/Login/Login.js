@@ -3,7 +3,7 @@ import { Form , Button, Row , Col} from "react-bootstrap"
 import { useState, useEffect } from "react";
 
 
-function LoginForm() {
+function LoginForm({setLoggedInUser}) {
     const [username, setUsername] = useState("Michael");
     const [password, setPassword] = useState("123456");
 
@@ -26,6 +26,7 @@ function LoginForm() {
         .then((data) => {
             console.log("data",data.jwt)
             sessionStorage.setItem("jwt", data.jwt);
+            setLoggedInUser(username)
         });
       }    
 

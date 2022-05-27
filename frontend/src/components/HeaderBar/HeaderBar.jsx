@@ -3,7 +3,7 @@ import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import { Link } from "react-router-dom"
 
 
-function HeaderContainer() {
+function HeaderContainer({loggedInUser}) {
     return (
         <div className="header-container">
             <Navbar bg="light" expand="lg">
@@ -23,6 +23,7 @@ function HeaderContainer() {
                     </NavDropdown>
                 </Nav>
                 <Nav>
+                    <Nav.Link >{loggedInUser ? loggedInUser : "Please Login"}</Nav.Link>
                     <Nav.Link as={Link} to="people" >Trips</Nav.Link>
                     <Nav.Link as={Link} to="login" >Profile</Nav.Link>
                 </Nav>
