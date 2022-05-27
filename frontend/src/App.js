@@ -7,6 +7,7 @@ import {
 import {useState, useEffect} from 'react';
 import HeaderBar from './components/HeaderBar/HeaderBar'
 import LoginForm from './components/Login/Login'
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Home = () => {
   return "Home"
