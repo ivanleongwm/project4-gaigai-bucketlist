@@ -49,7 +49,11 @@ router.post("/login", async (req, res) => {
       res
          .status(200)
          .cookie("NewCookie", newToken, { path: "/" , httpOnly: true })
+<<<<<<< HEAD
          .send({"jwt":newToken});
+=======
+         .send({"jwt": newToken});
+>>>>>>> a77be52c2b76cd42ef213a59b9a6e75df863a6c9
     } else {
       res.status(403).send("unauthorised");
     }

@@ -71,7 +71,7 @@ const verifyToken = (req, res, next) => {
 
     // validate the token
     const decoded = jwt.verify(authToken, process.env.TOKEN_SECRET);
-
+    console.log("DECODED",decoded)
     // if valid, retrieve the username from the token
     const username = decoded.data;
 
@@ -84,9 +84,11 @@ const verifyToken = (req, res, next) => {
 };
 
 app.post("/api/posts", verifyToken, (req, res) => {
-  const username = req.user;
-  const userTransactions = transactions[username];
-  res.status(200).json({ transactions: userTransactions });
+  const username = jwt.verify(req.headers.token, process.env.TOKEN_SECRET).user;
+  console.log("USERNAME",username)
+  //const userTransactions = transactions[username];
+  //res.status(200).json({ transactions: userTransactions });
+  res.status(200).json({ 'username': username });
 });
 
 app.post("/api/logout", (req,res) => {
