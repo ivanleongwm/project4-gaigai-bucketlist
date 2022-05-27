@@ -8,7 +8,6 @@ function LoginForm() {
     const [password, setPassword] = useState("123456");
 
     const handleLogin = (event) => {
-        console.log(event)
         event.preventDefault();
         const login = { username, password };
     
@@ -20,9 +19,14 @@ function LoginForm() {
           body: JSON.stringify({
               username: username, 
               password: password})
-      })
-        .then((res) => res.json())
-        .then((res) => console.log(res));
+        })
+        .then((res) => {
+            return res.json()
+        })
+        .then((data) => {
+            console.log("data",data.jwt)
+            sessionStorage.setItem("jwt", data.jwt);
+        });
       }    
 
     return (
