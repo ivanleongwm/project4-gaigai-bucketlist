@@ -8,6 +8,7 @@ const tripSchema = new Schema({
     endDate: {type: Date, required: false},
     activity: {type: String, required: false},
     photos: [String],
+    public: {type: Boolean, required: false}
 });
 
 const Trip = mongoose.model("trip-details", tripSchema);
