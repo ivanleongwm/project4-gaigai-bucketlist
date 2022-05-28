@@ -50,7 +50,7 @@ router.get("/seed", async (req,res) => {
       res.json(tripDetails);
 });
 
-router.get("/api/trips/:id", verifyToken, async (req, res) => {
+router.get("/:id", verifyToken, async (req, res) => {
     const singleTripDetail = await Trip.findOne({ tripIndex: req.params.id});
     console.log("trip details found",singleTripDetail)
     res.status(200).send(singleTripDetail);
