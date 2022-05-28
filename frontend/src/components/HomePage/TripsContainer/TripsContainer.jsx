@@ -1,30 +1,28 @@
 import React from "react";
+import {useEffect} from 'react'
 import { Tabs, Tab } from 'react-bootstrap';
 import TripCard from './TripCard/TripCard'
 
 function TripsContainer() {
-    const handleLogin = (event) => {
-        event.preventDefault();
-        const login = { username, password };
-    
-        fetch("/api/users/login", { 
-          method: "POST",
+    const fetchData = () => {
+        const jwt = sessionStorage.getItem("jwt");
+
+        fetch(`/api/trips/${id}`, { 
+          method: "GET",
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-              username: username, 
-              password: password})
+              "jwt": jwt
+            })
         })
         .then((res) => {
             return res.json()
         })
         .then((data) => {
-            console.log("data",data.jwt)
-            sessionStorage.setItem("jwt", data.jwt);
-            setLoggedInUser(username)
+            console.log("data",data)
         });
-      }    
+      }      
 
     return (
         <div className="trips-container">
