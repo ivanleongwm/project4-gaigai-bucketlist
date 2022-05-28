@@ -7,7 +7,7 @@ function TripsContainer() {
     const fetchData = () => {
         const jwt = sessionStorage.getItem("jwt");
 
-        fetch(`/api/trips/${id}`, { 
+        fetch(`/api/trips`, { 
           method: "GET",
           headers: {
             'Content-Type': 'application/json'
