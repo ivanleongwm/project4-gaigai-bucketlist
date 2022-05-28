@@ -3,6 +3,25 @@ const router = express.Router();
 const Trip = require("../models/Trip")
 const jwt = require("jsonwebtoken");
 
+const verifyToken = (req, res, next) => {
+    try {
+      const authToken = req.headers.token;
+  
+      // validate the token
+      const decoded = jwt.verify(authToken, process.env.TOKEN_SECRET);
+      console.log("DECODED",decoded)
+      // if valid, retrieve the username from the token
+      const username = decoded.data;
+  
+      req.user = username;
+  
+      next();
+    } catch (error) {
+      res.sendStatus(403);
+    }
+  };
+
+
 router.get("/seed", async (req,res) => {
     const tripDetails = [
         {
@@ -30,5 +49,11 @@ router.get("/seed", async (req,res) => {
       await Trip.insertMany(tripDetails);
       res.json(tripDetails);
 });
+
+router.get("/api/trips/:id", verifyToken, async (req, res) => {
+    const singleTripDetail = await Trip.findOne({ tripIndex: req.params.id});
+    console.log("trip details found",singleTripDetail)
+    res.status(200).send(singleTripDetail);
+  });
 
 module.exports = router;

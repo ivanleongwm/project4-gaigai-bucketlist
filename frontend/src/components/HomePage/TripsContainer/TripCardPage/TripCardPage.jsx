@@ -12,11 +12,9 @@ function TripCardPage () {
         fetch(`/api/trips/${id}`, { 
           method: "GET",
           headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-              "jwt": jwt
-            })
+            'Content-Type': 'application/json',
+            'token': jwt
+          }
         })
         .then((res) => {
             return res.json()
