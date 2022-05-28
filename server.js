@@ -4,11 +4,11 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
-const users = require("./users");
 const transactions = require("./transactions");
 
 const path = require("path")
 const UserController = require("./controllers/userController")
+const TripController = require("./controllers/tripController")
 
 const app = express();
 const PORT = process.env.PORT ?? 4000;
@@ -20,6 +20,7 @@ mongoose.connect(mongoURI, {}, () => {
 
 app.use(express.json());
 app.use("/api/users", UserController);
+app.use("/api/trips", TripController);
 app.use(express.static("./frontend/build"))
 
 app.get("/api/hi", (req, res) => {

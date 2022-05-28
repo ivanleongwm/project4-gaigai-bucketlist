@@ -10,10 +10,6 @@ import LoginForm from './components/Login/Login'
 import Home from './components/HomePage/Home'
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const People = () => {
-  return "People";
-}
-
 function App() {
   const [loggedInUser, setLoggedInUser] = useState("");
 
