@@ -4,8 +4,9 @@ import {useState,useEffect} from 'react';
 import image from '../../../../assets/images/seoul-sakura.jpg'
 import {useParams} from 'react-router-dom'
 import { Row, Col, Container } from 'react-bootstrap';
-const moment = require('moment');
+import UploadImages from '../ImageUploading/ImageUploading'
 
+const moment = require('moment');
 
 function TripCardPage () {
     const {id} = useParams();
@@ -56,6 +57,7 @@ function TripCardPage () {
                             })
                         }
                         <div>Public tag: {singleTripData.public}</div>
+                        <UploadImages />
                     </Col>
                 </Row>
             </Container>
