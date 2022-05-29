@@ -1,11 +1,14 @@
 import React from "react";
-import { Row, Col, Container } from 'react-bootstrap';
-
+import { Row, Col, Container, Button } from 'react-bootstrap';
+import {useState} from 'react';
 import TripsContainer from './TripsContainer/TripsContainer'
+import MyVerticallyCenteredModal from './CreateNewTripModal/CreateNewTripModal'
 
 import './Home.css'
 
 function Home() {
+    const [modalShow, setModalShow] = useState(false);
+
     return (
         <div className="homepage-container">
             <Container>
@@ -17,9 +20,13 @@ function Home() {
                                 <div className="image">
                                     <div className="black-filter">
                                         <h2>Trips</h2>
-                                        <a className="create-new-trip-button" href="">
-                                            CREATE NEW TRIP
-                                        </a>
+                                        <Button className="create-new-trip-button" variant="primary" onClick={() => setModalShow(true)}>
+                                            CREATE NEW TRIP >
+                                        </Button>
+                                        <MyVerticallyCenteredModal
+                                        show={modalShow}
+                                        onHide={() => setModalShow(false)}
+                                        />
                                     </div>
                                 </div>
                             </div>
