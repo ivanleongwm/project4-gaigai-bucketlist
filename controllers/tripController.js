@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Trip = require("../models/Trip")
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
+const uploadController = require("./fileUploadController");
 
 const verifyToken = (req, res, next) => {
     try {
@@ -20,7 +22,6 @@ const verifyToken = (req, res, next) => {
       res.sendStatus(403);
     }
   };
-
 
 router.get("/seed", async (req,res) => {
     const tripDetails = [
