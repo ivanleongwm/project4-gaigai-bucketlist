@@ -10,7 +10,21 @@ function Home() {
         <div className="homepage-container">
             <Container>
                 <Row>
-                    <Col sm={4}>1 of 2</Col>
+                    <Col sm={4}>
+                        <div className="banner-image-container">
+                            <div id="parallelogram">
+                                
+                                <div className="image">
+                                    <div className="black-filter">
+                                        <h2>Trips</h2>
+                                        <a className="create-new-trip-button" href="">
+                                            CREATE NEW TRIP
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Col>
                     <Col sm={8}>
                         <TripsContainer/>
                     </Col>
