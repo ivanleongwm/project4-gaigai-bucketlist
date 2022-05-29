@@ -1,10 +1,17 @@
+import './TripCardPage.css';
 import {Card, Button} from 'react-bootstrap';
 import {useState,useEffect} from 'react';
 import image from '../../../../assets/images/seoul-sakura.jpg'
 import {useParams} from 'react-router-dom'
+import { Row, Col, Container } from 'react-bootstrap';
+const moment = require('moment');
+
 
 function TripCardPage () {
     const {id} = useParams();
+    const [singleTripData, setSingleTripData] = useState({
+        photos:[]
+    })
 
     const fetchData = () => {
         const jwt = sessionStorage.getItem("jwt");
@@ -21,6 +28,8 @@ function TripCardPage () {
         })
         .then((data) => {
             console.log("data",data)
+            setSingleTripData(data)
+            console.log("photos array",data.photos)
         });
       }    
 
@@ -29,18 +38,27 @@ function TripCardPage () {
       },[])
 
     return (
-        <div className="trip-card-container">
-            <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={image} />
-                <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
-                    <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
-                    </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
-                </Card.Body>
-            </Card>
+        <div className="single-trip-card-container">
+            <Container>
+                <Row>
+                    <Col sm={4}>1 of 2</Col>
+                    <Col sm={8}>
+                        <div>Trip Index: {singleTripData.tripIndex}</div>
+                        <div>Location: {singleTripData.location}</div>
+                        <div>Start Date: {moment(singleTripData.startDate).format('DD-MM-YYYY')}</div>
+                        <div>End Date: {moment(singleTripData.endDate).format('DD-MM-YYYY')}</div>
+                        <div>Activity: {singleTripData.activity}</div>
+                        {
+                            singleTripData.photos.map((photo)=> {
+                                return (
+                                    <img className="trip-images" src={photo}/>
+                                )
+                            })
+                        }
+                        <div>Public tag: {singleTripData.public}</div>
+                    </Col>
+                </Row>
+            </Container>
         </div> 
     )
 }
