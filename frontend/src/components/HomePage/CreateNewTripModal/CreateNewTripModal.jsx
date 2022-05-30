@@ -9,7 +9,7 @@ function MyVerticallyCenteredModal(props) {
         formGridLocation : "Singapore",
         formGridActivityTitle : "Running",
         formGridBriefDescription : "Fast and Far",
-        formGridThumbnailUrl : "www.google.com",
+        formGridThumbnailUrl : "https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
         formGridCheckbox : true
     }); 
     
@@ -21,6 +21,29 @@ function MyVerticallyCenteredModal(props) {
     };
 
     //post fetch call to create data in database, on submit
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const jwt = sessionStorage.getItem("jwt");
+        const username = sessionStorage.getItem("username");
+        
+        fetch("/api/trips/create-trip", { 
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            'token': jwt
+          },
+          body: JSON.stringify({
+              ...tripCreateData,
+              "username": username
+            })
+        })
+        .then((res) => {
+            return res.json()
+        })
+        .then((data) => {
+            console.log("data",data)
+        });
+      }    
 
     return (
       <Modal
@@ -101,7 +124,7 @@ function MyVerticallyCenteredModal(props) {
                 />
                 </Form.Group>
             </Row>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={(event) => {handleSubmit(event)}}>
                 Submit
             </Button>
         </Form>

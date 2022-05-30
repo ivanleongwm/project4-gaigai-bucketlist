@@ -1,18 +1,24 @@
 import {Card, Button} from 'react-bootstrap';
 import image from '../../../../assets/images/seoul-sakura.jpg'
+import {useState, useEffect} from 'react';
 
-function TripCard () {
+function TripCard ({tripDetails}) {
+
+    useEffect(()=>{
+        console.log("trip details:",tripDetails)
+        console.log("location:",tripDetails.location)
+    },[tripDetails])
+
     return (
         <div className="trip-card-container">
             <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={image} />
+                <Card.Img variant="top" src={tripDetails.thumbnail} />
                 <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
+                    <Card.Title>{tripDetails.location + " " + tripDetails.title}</Card.Title>
                     <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
+                    {tripDetails.description}
                     </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
+                    <Button variant="primary" href={"/trips/" + tripDetails.tripIndex}>Go somewhere</Button>
                 </Card.Body>
             </Card>
         </div> 

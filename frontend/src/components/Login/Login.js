@@ -26,6 +26,7 @@ function LoginForm({setLoggedInUser}) {
         .then((data) => {
             console.log("data",data.jwt)
             sessionStorage.setItem("jwt", data.jwt);
+            sessionStorage.setItem("username", username);
             setLoggedInUser(username)
         });
       }    

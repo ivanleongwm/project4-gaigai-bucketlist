@@ -1,0 +1,8 @@
+.solo-trip-container {
+    align-items: center;   
+}
+
+.trip-tabs {
+    display: flex;
+    flex-wrap:flex;
+}
