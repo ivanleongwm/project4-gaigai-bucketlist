@@ -2,7 +2,7 @@ import {Form} from 'react-bootstrap'
 import {useState} from 'react'
 import './LineItem.css'
 
-function NecessityCard ({name , quantity, checked, essentialItemsCount, setEssentialItemsCount,allThingsForTrip, setAllThingsForTrip,cardName}) {
+function NecessityCard ({name , quantity, checked, essentialItemsCount, setEssentialItemsCount,allThingsForTrip, setAllThingsForTrip,cardName, onNeccesitiesChange}) {
 
     const handleChangeCount = (event) =>{
         if (event.target.type === 'number') {
@@ -12,6 +12,10 @@ function NecessityCard ({name , quantity, checked, essentialItemsCount, setEssen
                 [event.target.value,essentialItemsCount[event.target.getAttribute("name")][1]]
             })
             setAllThingsForTrip({...allThingsForTrip,[cardName]:{
+                ...essentialItemsCount,
+                [event.target.getAttribute("name")] : 
+                [event.target.value,essentialItemsCount[event.target.getAttribute("name")][1]]}})
+            onNeccesitiesChange({...allThingsForTrip,[cardName]:{
                 ...essentialItemsCount,
                 [event.target.getAttribute("name")] : 
                 [event.target.value,essentialItemsCount[event.target.getAttribute("name")][1]]}})
@@ -29,6 +33,11 @@ function NecessityCard ({name , quantity, checked, essentialItemsCount, setEssen
             [event.target.getAttribute("name")] : 
             [essentialItemsCount[event.target.getAttribute("name")][0],event.target.checked]
             }})
+            onNeccesitiesChange({...allThingsForTrip,[cardName]:{
+                ...essentialItemsCount,
+            [event.target.getAttribute("name")] : 
+            [essentialItemsCount[event.target.getAttribute("name")][0],event.target.checked]
+            }})
             console.log(event)
             console.log(event.target.getAttribute("name"))
             console.log(event.target.checked)
@@ -42,6 +51,10 @@ function NecessityCard ({name , quantity, checked, essentialItemsCount, setEssen
         setAllThingsForTrip({...allThingsForTrip,[cardName]:{
             ...items
         }})
+        onNeccesitiesChange({...allThingsForTrip,[cardName]:{
+            ...items
+        }})
+        console.log("delete all things",allThingsForTrip)
     }
 
     return (

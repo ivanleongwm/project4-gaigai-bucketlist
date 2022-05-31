@@ -12,7 +12,7 @@ const essentialsCount = {
     "water bottle" : [1,false]
 }
 
-function NecessityCard ({cardName,cardData,allThingsForTrip,setAllThingsForTrip}) {
+function NecessityCard ({cardName,cardData,allThingsForTrip,setAllThingsForTrip,onNeccesitiesChange}) {
     const [essentialItemsCount,setEssentialItemsCount] = useState(cardData)
     const [addItemData, setAddItemData] = useState({
         quantity: 1,
@@ -25,7 +25,9 @@ function NecessityCard ({cardName,cardData,allThingsForTrip,setAllThingsForTrip}
 
     const handleChange = (event) => {
         const name = event.target.name; //refers to input name
-        setAddItemData({ ...addItemData, [name]: event.target.value }); //name is in sq brackets is to refer to variable in this scope (this.name)
+        const payload = { ...addItemData, [name]: event.target.value }
+        setAddItemData(payload); //name is in sq brackets is to refer to variable in this scope (this.name)
+        onNeccesitiesChange(payload)
         console.log("added item form change",addItemData);
       };
 
@@ -38,18 +40,20 @@ function NecessityCard ({cardName,cardData,allThingsForTrip,setAllThingsForTrip}
                     return <LineItem key={index } name={key} quantity={essentialItemsCount[key][0]} 
                     checked={essentialItemsCount[key][1]} setEssentialItemsCount={setEssentialItemsCount} 
                     essentialItemsCount={essentialItemsCount} setAllThingsForTrip={setAllThingsForTrip}
-                    allThingsForTrip={allThingsForTrip} cardName={cardName}
+                    allThingsForTrip={allThingsForTrip} cardName={cardName} onNeccesitiesChange={onNeccesitiesChange}
                     />
                 })
             }
             <form
             onSubmit={(event) => {
                 event.preventDefault()
+                const payload = {...allThingsForTrip,[cardName]:{
+                    [addItemData["description"]]: [addItemData["quantity"],false]
+                }}
                 setEssentialItemsCount({...essentialItemsCount,
                 [addItemData["description"]]: [addItemData["quantity"],false]})
-                setAllThingsForTrip({...allThingsForTrip,[cardName]:{
-                    [addItemData["description"]]: [addItemData["quantity"],false]
-                }})
+                setAllThingsForTrip(payload)
+                onNeccesitiesChange(payload)
                 setAddItemData({
                     quantity: 1,
                     description: "",

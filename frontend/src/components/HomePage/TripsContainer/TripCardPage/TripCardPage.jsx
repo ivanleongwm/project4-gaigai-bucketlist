@@ -48,12 +48,12 @@ function TripCardPage () {
         photos:[]
     })
     const [allThingsForTrip, setAllThingsForTrip] = useState(things)
-    const [addNewCategory, setAddNewCategory] = useState("")
+    const [addNewCategory, setAddNewCategory] = useState({"category":""})
 
     const fetchData = () => {
         const jwt = sessionStorage.getItem("jwt");
 
-        fetch(`/api/trips/${id}`, { 
+        fetch(`/api/trips/get-single-trip-data/${id}`, { 
           method: "GET",
           headers: {
             'Content-Type': 'application/json',
@@ -65,9 +65,29 @@ function TripCardPage () {
         })
         .then((data) => {
             console.log("data",data)
-            setSingleTripData(data)
+            setSingleTripData(data.singleTripDetail)
+            setAllThingsForTrip(data.singleTripNecessities.things)
             console.log("photos array",data.photos)
         });
+      }
+
+      const onNeccesitiesChange = (payload) => {
+        const jwt = sessionStorage.getItem("jwt");
+        fetch(`/api/trips/update-single-trip-data/${id}`, { 
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json',
+              'token': jwt
+            },
+            body: JSON.stringify({
+                payload})
+          })
+          .then((res) => {
+              return res.json()
+          })
+          .then((data) => {
+              console.log("data",data)
+          });
       }
       
     useEffect(() => {
@@ -79,31 +99,13 @@ function TripCardPage () {
     },[allThingsForTrip])
 
     const handleChange = (event) => {
-        setAddNewCategory(event.target.value);
+        const payload = {...addNewCategory,"category":event.target.value}
+        setAddNewCategory(payload);
+        onNeccesitiesChange(payload);
     }
 
     return (
         <div className="single-trip-card-container">
-            <form
-            onSubmit={(event) => {
-                event.preventDefault()
-                setAllThingsForTrip({...allThingsForTrip,
-                    [addNewCategory]:{"materials":[1,false]}
-                })
-                }
-            }
-        >
-        <label>
-          Add item:
-        </label>
-        <input
-            name="description"
-            placeholder="description"
-            onChange={(event) => {handleChange(event)}}
-            type="text"
-          />
-        <input type="submit" value="Add" />
-      </form>
             <Container className="vh-100 d-flex flex-column">
                 <Row className="h-100">
                     <Col sm={4}>
@@ -114,10 +116,32 @@ function TripCardPage () {
                     </div>
                     </Col>
                     <Col sm={8}>
+                    <form
+                    onSubmit={(event) => {
+                        event.preventDefault()
+                        const payload = {...allThingsForTrip,
+                            [addNewCategory["category"]]:{"materials":[1,false]}}
+                        setAllThingsForTrip(payload)
+                        onNeccesitiesChange(payload)
+                        }
+                    }
+                    >
+                    <label>
+                    Add item:
+                    </label>
+                    <input
+                        name="description"
+                        placeholder="description"
+                        onChange={(event) => {handleChange(event)}}
+                        type="text"
+                    />
+                    <input type="submit" value="Add" />
+                </form>
                         {
-                            Object.keys(things).map(function(key, index) {
-                                return <NecessityCard cardName={key} cardData={things[key]} allThingsForTrip={allThingsForTrip} setAllThingsForTrip={setAllThingsForTrip}/>
-                            })
+                                Object.keys(allThingsForTrip).map(function(key, index) {
+                                    return <NecessityCard cardName={key} cardData={allThingsForTrip[key]} allThingsForTrip={allThingsForTrip} setAllThingsForTrip={setAllThingsForTrip}
+                                    onNeccesitiesChange={onNeccesitiesChange}/>
+                                })
                         }
                     <Box
                         sx={{

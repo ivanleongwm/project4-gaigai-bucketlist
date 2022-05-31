@@ -4,6 +4,7 @@ const Trip = require("../models/Trip")
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const uploadController = require("./fileUploadController");
+const TripNecessities = require("../models/TripNecessities")
 
 const verifyToken = (req, res, next) => {
     try {
@@ -54,7 +55,40 @@ router.get("/seed", async (req,res) => {
       ];
       await Trip.deleteMany({});
       await Trip.insertMany(tripDetails);
-      res.json(tripDetails);
+
+      const TripThings = {
+        tripIndex : 1,
+        things : {
+            essentials : {
+              "medications" : [1,false],
+              "passport" : [1,false],
+              "visa" : [1,false],
+              "wallet" : [1,false],
+              "water bottle" : [1,false]
+          },
+          accessories : {
+              "belt" : [1,false],
+              "sunglasses" : [1,false],
+              "watch" : [1,false],
+              "cap" : [1,false]
+          },
+          footwear : {
+              "hiking shoes" : [1,false],
+              "sandals" : [1,false],
+              "shoes" : [1,false],
+              "socks" : [1,false]
+          },
+          toiletries : {
+              "floss" : [1,false],
+              "mouth wash" : [1,false],
+              "tooth paste" : [1,false],
+              "towel" : [1,false]
+          }
+        }
+      }
+      await TripNecessities.deleteMany({});
+      await TripNecessities.insertMany(TripThings);
+      res.json(tripDetails,TripThings);
 });
 
 router.get("/get-user-trips", verifyToken, async (req, res) => {
@@ -84,11 +118,25 @@ router.post("/create-trip", verifyToken, async (req, res) => {
 });
 
 
-router.get("/:id", verifyToken, async (req, res) => {
+router.get("/get-single-trip-data/:id", verifyToken, async (req, res) => {
     const singleTripDetail = await Trip.findOne({ tripIndex: req.params.id});
+    const singleTripNecessities = await TripNecessities.findOne({tripIndex: req.params.id})
     console.log("trip details found",singleTripDetail)
-    res.status(200).send(singleTripDetail);
+    console.log("trip necessities found",singleTripNecessities)
+    res.status(200).send({singleTripDetail,singleTripNecessities});
   });
+
+router.post("/update-single-trip-data/:id", verifyToken, async (req, res) => {
+  console.log("test",req.body)
+  const updatedTripDetails = await TripNecessities.findOneAndUpdate({ tripIndex: req.params.id}, req.body);
+  console.log("trip necessities updated",updatedTripDetails)
+  res.status(200).send({updatedTripDetails});
+  /*
+  const singleTripDetail = await Trip.findOne({ tripIndex: req.params.id});
+  const singleTripNecessities = await TripNecessities.findOne({tripIndex: req.params.id})
+  console.log("trip details found",singleTripDetail)
+  */
+});
 
 
 module.exports = router;
