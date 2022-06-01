@@ -13,7 +13,7 @@ import Paper from '@mui/material/Paper';
 import NecessityCard from './NeccesitiesCard/NecessityCard';
 
 const moment = require('moment');
-
+/*
 const things = {
     essentials : {
         "medications" : [1,false],
@@ -41,13 +41,15 @@ const things = {
         "towel" : [1,false]
     }
 }
+*/
+//fix get and post of trip neccesities from monogodb 
 
 function TripCardPage () {
     const {id} = useParams();
     const [singleTripData, setSingleTripData] = useState({
         photos:[]
     })
-    const [allThingsForTrip, setAllThingsForTrip] = useState(things)
+    const [allThingsForTrip, setAllThingsForTrip] = useState({})
     const [addNewCategory, setAddNewCategory] = useState({"category":""})
 
     const fetchData = () => {
@@ -80,7 +82,8 @@ function TripCardPage () {
               'token': jwt
             },
             body: JSON.stringify({
-                payload})
+                "tripIndex":id,
+                "things":payload})
           })
           .then((res) => {
               return res.json()

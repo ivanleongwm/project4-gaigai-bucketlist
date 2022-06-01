@@ -27,7 +27,7 @@ function NecessityCard ({cardName,cardData,allThingsForTrip,setAllThingsForTrip,
         const name = event.target.name; //refers to input name
         const payload = { ...addItemData, [name]: event.target.value }
         setAddItemData(payload); //name is in sq brackets is to refer to variable in this scope (this.name)
-        onNeccesitiesChange(payload)
+        //onNeccesitiesChange(payload)
         console.log("added item form change",addItemData);
       };
 
@@ -48,6 +48,7 @@ function NecessityCard ({cardName,cardData,allThingsForTrip,setAllThingsForTrip,
             onSubmit={(event) => {
                 event.preventDefault()
                 const payload = {...allThingsForTrip,[cardName]:{
+                    ...allThingsForTrip[cardName],
                     [addItemData["description"]]: [addItemData["quantity"],false]
                 }}
                 setEssentialItemsCount({...essentialItemsCount,

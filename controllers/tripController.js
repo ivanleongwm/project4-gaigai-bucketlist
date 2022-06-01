@@ -88,7 +88,7 @@ router.get("/seed", async (req,res) => {
       }
       await TripNecessities.deleteMany({});
       await TripNecessities.insertMany(TripThings);
-      res.json(tripDetails,TripThings);
+      res.json(TripThings);
 });
 
 router.get("/get-user-trips", verifyToken, async (req, res) => {
@@ -128,7 +128,9 @@ router.get("/get-single-trip-data/:id", verifyToken, async (req, res) => {
 
 router.post("/update-single-trip-data/:id", verifyToken, async (req, res) => {
   console.log("test",req.body)
-  const updatedTripDetails = await TripNecessities.findOneAndUpdate({ tripIndex: req.params.id}, req.body);
+  const deletedTripDetails = await TripNecessities.deleteOne({ tripIndex: req.params.id})
+  const updatedTripDetails = await TripNecessities.insertMany(req.body)
+  //
   console.log("trip necessities updated",updatedTripDetails)
   res.status(200).send({updatedTripDetails});
   /*
@@ -137,6 +139,28 @@ router.post("/update-single-trip-data/:id", verifyToken, async (req, res) => {
   console.log("trip details found",singleTripDetail)
   */
 });
+/*
+User.update({'Id':response.Id}, {$set:{
+      'Firstname':response.Fname,
+      'Age' : response.age,
+      'Lastname' : response.Lname,
+      'DateOfBirth' : response.dob,
+      'PlaceOfBirth' : response.pob,
+      'Months' : response.month,
+      'Nationality' : response.nation,
+      'MotherTongue' : response.mothertongue,
+      'BloodGroup' : response.bloodgroup,
+      'Father.Firstname' : response.fatherfname,
+      'Father.Lastname' : response.fatherlname,
+      'Father.Occupation' : response.occupation,
+      'Father.PlaceOfWork' : response.placeofwork,
+      'Father.OfficialAddress' : response.officaladd,
+      'Father.EmailId' : response.emailid,
+      'Father.PhoneNo' : response.phoneno,
+      'Father.MobileNo' : response.mobileno,
+      'Mother.Firstname' : response.motherfname,
+      'Mother.Lastname' : response.motherlname,
+    */
 
 
 module.exports = router;
