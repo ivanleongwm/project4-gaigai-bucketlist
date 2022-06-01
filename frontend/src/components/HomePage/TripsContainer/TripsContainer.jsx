@@ -33,6 +33,10 @@ function TripsContainer() {
         console.log("useeffect run")
     },[]);  
 
+    useEffect(()=>{
+        console.log("user trips data fetched",userTrips)
+    },[userTrips])
+
     return (
         <div className="trips-container">
             <Tabs defaultActiveKey="Solo Trip" id="uncontrolled-tab-example" className="mb-5">
