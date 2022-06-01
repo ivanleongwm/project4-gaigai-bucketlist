@@ -4,6 +4,7 @@ import {useState} from 'react';
 
 function MyVerticallyCenteredModal(props) {
     const [tripCreateData,setTripCreateData] = useState({
+        tripIndex : 11,
         formGridStartDate : "2022-05-09",
         formGridEndDate : "2022-05-20",
         formGridLocation : "Singapore",
@@ -25,7 +26,8 @@ function MyVerticallyCenteredModal(props) {
         event.preventDefault();
         const jwt = sessionStorage.getItem("jwt");
         const username = sessionStorage.getItem("username");
-        
+        const tripIndex = Math.floor((Math.random() * 1000000000) + 1);
+
         fetch("/api/trips/create-trip", { 
           method: "POST",
           headers: {
@@ -34,7 +36,8 @@ function MyVerticallyCenteredModal(props) {
           },
           body: JSON.stringify({
               ...tripCreateData,
-              "username": username
+              "username" : username,
+              "tripIndex" : tripIndex
             })
         })
         .then((res) => {
