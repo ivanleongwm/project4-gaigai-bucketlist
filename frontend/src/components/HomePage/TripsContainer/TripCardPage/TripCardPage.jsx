@@ -50,7 +50,7 @@ function TripCardPage () {
         photos:[]
     })
     const [allThingsForTrip, setAllThingsForTrip] = useState({})
-    const [addNewCategory, setAddNewCategory] = useState({"category":""})
+    const [addNewCategory, setAddNewCategory] = useState("")
 
     const fetchData = () => {
         const jwt = sessionStorage.getItem("jwt");
@@ -102,9 +102,9 @@ function TripCardPage () {
     },[allThingsForTrip])
 
     const handleChange = (event) => {
-        const payload = {...addNewCategory,"category":event.target.value}
+        const payload = event.target.value
         setAddNewCategory(payload);
-        onNeccesitiesChange(payload);
+        //onNeccesitiesChange(payload);
     }
 
     return (
@@ -123,7 +123,7 @@ function TripCardPage () {
                     onSubmit={(event) => {
                         event.preventDefault()
                         const payload = {...allThingsForTrip,
-                            [addNewCategory["category"]]:{"materials":[1,false]}}
+                            [addNewCategory]:{"materials":[1,false]}}
                         setAllThingsForTrip(payload)
                         onNeccesitiesChange(payload)
                         }

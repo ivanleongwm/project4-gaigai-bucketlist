@@ -45,6 +45,7 @@ function NecessityCard ({name , quantity, checked, essentialItemsCount, setEssen
     }
 
     const handleCrossDelete = (event) => {
+        // fix the glitch where when there's only one item left. the entire category gets deleted
         const items = {...essentialItemsCount}
         delete items[event.target.getAttribute("name")]
         setEssentialItemsCount({...items})
