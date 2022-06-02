@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const postSchema = new Schema({
     tripIndex: {type: Number, required: false},
     postTitle: {type: String, required: false},
+    username: {type: String, required: false},
     postDate: {type: Date, required: false},
     postBody: {type: String, required: false},
     public: {type: Boolean, required: false}

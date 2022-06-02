@@ -55,6 +55,7 @@ function TripCardPage () {
     const [allThingsForTrip, setAllThingsForTrip] = useState({})
     const [addNewCategory, setAddNewCategory] = useState("")
     const [postModalShow, setPostModalShow] = useState(false);
+    const [userPosts, setUserPosts] = useState([])
 
     const fetchData = () => {
         const jwt = sessionStorage.getItem("jwt");
@@ -110,6 +111,31 @@ function TripCardPage () {
         setAddNewCategory(payload);
         //onNeccesitiesChange(payload);
     }
+
+    const fetchPostsData = () => {
+        const jwt = sessionStorage.getItem("jwt");
+        const username = sessionStorage.getItem("username");
+
+        fetch("/api/posts/get-user-posts", { 
+            method: "GET",
+            headers: {
+            'Content-Type': 'application/json',
+            'token':jwt,
+            'username': username
+            }
+        })
+        .then((res) => {
+            return res.json()
+        })
+        .then((data) => {
+            console.log("USER POSTS",data)
+            setUserPosts(data.userPosts)
+        });
+    }
+
+    useEffect(()=>{
+        fetchPostsData()
+    },[])
 
     return (
         <div className="single-trip-card-container">
@@ -167,7 +193,11 @@ function TripCardPage () {
                                     onHide={() => setPostModalShow(false)}
                                     />
                                     <br/>
-                                    <InstagramPostCard/>
+                                    {
+                                        userPosts.map((post,index) => {
+                                            return (<InstagramPostCard postData={post} key={index}/>)
+                                        })
+                                    }
                                 </div>
                             </TabPanel>
                         </Tabs>

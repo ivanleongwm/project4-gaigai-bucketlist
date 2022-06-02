@@ -6,16 +6,15 @@ import {useParams} from 'react-router-dom'
 
 function InstaPostModal(props) {
     const today = new Date().toISOString().slice(0, 10)
-    const {tripIndex} = useParams()
+    const {id} = useParams()
     const [postCreateData,setPostCreateData] = useState({
-        tripIndex : tripIndex,
         postTitle : "Happy day at ala restaurant",
         postDate : today,
         postBody: "a wonderous tour of the world",
         //formGridThumbnailUrl : "https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
         publicPrivate : true
     }); 
-    
+    const [userPosts, setUserPosts] = useState({})
     // handle change event
     const handleChange = (e) => {
         e.preventDefault(); // prevent the default action
@@ -29,7 +28,7 @@ function InstaPostModal(props) {
         const jwt = sessionStorage.getItem("jwt");
         const username = sessionStorage.getItem("username");
 
-        fetch("/api/trips/create-trip", { 
+        fetch("/api/posts/create-post", { 
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
@@ -38,7 +37,7 @@ function InstaPostModal(props) {
           body: JSON.stringify({
               ...postCreateData,
               "username" : username,
-              "tripIndex" : tripIndex
+              "tripIndex" : id
             })
         })
         .then((res) => {
@@ -49,9 +48,35 @@ function InstaPostModal(props) {
         });
       }    
 
+    const fetchPostsData = () => {
+        const jwt = sessionStorage.getItem("jwt");
+        const username = sessionStorage.getItem("username");
+
+        fetch("/api/posts/get-user-posts", { 
+            method: "GET",
+            headers: {
+            'Content-Type': 'application/json',
+            'token':jwt,
+            'username': username
+            }
+        })
+        .then((res) => {
+            return res.json()
+        })
+        .then((data) => {
+            console.log("USER POSTS",data)
+            setUserPosts(data)
+        });
+    }
+
     useEffect(()=>{
         console.log("post details",postCreateData)
+        console.log("TRIPINDEX",id)
     },[postCreateData])
+
+    useEffect(()=>{
+        fetchPostsData()
+    },[])
 
     return (
       <Modal
@@ -110,6 +135,7 @@ function InstaPostModal(props) {
                     onChange={handleChange}
                 />
                 </Form.Group>
+                <UploadImages/>
             <Button variant="primary" type="submit" onClick={(event) => {handleSubmit(event)}}>
                 Submit
             </Button>
