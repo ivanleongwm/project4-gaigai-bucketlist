@@ -1,8 +1,10 @@
 import React from "react";
 import {useState, useEffect} from 'react'
-import { Tabs, Tab } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import TripCard from './TripCard/TripCard'
 import './TripsContainer.css'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 function TripsContainer() {
     const [userTrips,setUserTrips] = useState([])
@@ -39,17 +41,21 @@ function TripsContainer() {
 
     return (
         <div className="trips-container">
-            <Tabs defaultActiveKey="Solo Trip" id="uncontrolled-tab-example" className="mb-5">
-                <Tab eventKey="Solo Trip" title="Solo Trip" className="d-inline-flex">
+            <Tabs>
+                <TabList>
+                <Tab>Trips</Tab>
+                <Tab>Highlights</Tab>
+                </TabList>
+                <TabPanel>
                     {
                         userTrips.map((tripDetails, index)=>{
                             return <TripCard key={index} tripDetails={tripDetails}/>
                         })
                     }
-                </Tab>
-                <Tab eventKey="Group Trip" title="Group Trip" className="d-inline-flex">
+                </TabPanel>
+                            <TabPanel>
                     Hello
-                </Tab>
+                </TabPanel>
             </Tabs>
         </div>
     )

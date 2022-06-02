@@ -1,16 +1,19 @@
 import './TripCardPage.css';
-import {Card, Button} from 'react-bootstrap';
+import { Button} from 'react-bootstrap';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
 import {useState,useEffect} from 'react';
 import image from '../../../../assets/images/seoul-sakura.jpg'
 import {useParams} from 'react-router-dom'
 import { Row, Col, Container } from 'react-bootstrap';
-import UploadImages from '../ImageUploading/ImageUploading';
 import InstagramPostCard from './InstagramPost/InstagramPost'
 import SingleTripHeader from './SingleTripHeader'
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import NecessityCard from './NeccesitiesCard/NecessityCard';
+import InstaPostModal from './InstagramPost/InstaPostModal'
 
 const moment = require('moment');
 /*
@@ -51,6 +54,7 @@ function TripCardPage () {
     })
     const [allThingsForTrip, setAllThingsForTrip] = useState({})
     const [addNewCategory, setAddNewCategory] = useState("")
+    const [postModalShow, setPostModalShow] = useState(false);
 
     const fetchData = () => {
         const jwt = sessionStorage.getItem("jwt");
@@ -119,62 +123,54 @@ function TripCardPage () {
                     </div>
                     </Col>
                     <Col sm={8}>
-                    <form
-                    onSubmit={(event) => {
-                        event.preventDefault()
-                        const payload = {...allThingsForTrip,
-                            [addNewCategory]:{"materials":[1,false]}}
-                        setAllThingsForTrip(payload)
-                        onNeccesitiesChange(payload)
-                        }
-                    }
-                    >
-                    <label>
-                    Add item:
-                    </label>
-                    <input
-                        name="description"
-                        placeholder="description"
-                        onChange={(event) => {handleChange(event)}}
-                        type="text"
-                    />
-                    <input type="submit" value="Add" />
-                </form>
-                        {
-                                Object.keys(allThingsForTrip).map(function(key, index) {
-                                    return <NecessityCard cardName={key} cardData={allThingsForTrip[key]} allThingsForTrip={allThingsForTrip} setAllThingsForTrip={setAllThingsForTrip}
-                                    onNeccesitiesChange={onNeccesitiesChange}/>
-                                })
-                        }
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            '& > :not(style)': {
-                            m: 1,
-                            width: 600,
-                            height: 250,
-                            },
-                        }}
-                        >
-                        <Paper elevation={5}>
-                            <div>Trip Index: {singleTripData.tripIndex}</div>
-                            <div>Location: {singleTripData.location}</div>
-                            <div>Start Date: {moment(singleTripData.startDate).format('DD-MM-YYYY')}</div>
-                            <div>End Date: {moment(singleTripData.endDate).format('DD-MM-YYYY')}</div>
-                            <div>Activity: {singleTripData.activity}</div>
-                            {
-                                singleTripData.photos.map((photo)=> {
-                                    return (
-                                        <img className="trip-images" src={photo}/>
-                                    )
-                                })
-                            }
-                            <div>Public tag: {singleTripData.public}</div>
-                        </Paper>
-                        </Box>
-                        <UploadImages />
-                        <InstagramPostCard/>
+                        <Tabs>
+                            <TabList>
+                            <Tab>Backpack</Tab>
+                            <Tab>Stories</Tab>
+                            </TabList>
+                            <TabPanel>
+                            <form
+                                onSubmit={(event) => {
+                                    event.preventDefault()
+                                    const payload = {...allThingsForTrip,
+                                        [addNewCategory]:{"materials":[1,false]}}
+                                    setAllThingsForTrip(payload)
+                                    onNeccesitiesChange(payload)
+                                    }
+                                }
+                                >
+                                <label>
+                                Add item:
+                                </label>
+                                <input
+                                    name="description"
+                                    placeholder="description"
+                                    onChange={(event) => {handleChange(event)}}
+                                    type="text"
+                                />
+                                <input type="submit" value="Add" />
+                            </form>
+                                {
+                                        Object.keys(allThingsForTrip).map(function(key, index) {
+                                            return <NecessityCard cardName={key} cardData={allThingsForTrip[key]} allThingsForTrip={allThingsForTrip} setAllThingsForTrip={setAllThingsForTrip}
+                                            onNeccesitiesChange={onNeccesitiesChange}/>
+                                        })
+                                }
+                            </TabPanel>
+                            <TabPanel>
+                                <div className="stories-container">
+                                    <Button className="create-new-trip-button" variant="primary" onClick={() => setPostModalShow(true)}>
+                                        CREATE NEW POST >
+                                    </Button>
+                                    <InstaPostModal
+                                    show={postModalShow}
+                                    onHide={() => setPostModalShow(false)}
+                                    />
+                                    <br/>
+                                    <InstagramPostCard/>
+                                </div>
+                            </TabPanel>
+                        </Tabs>
                     </Col>
                 </Row>
             </Container>
@@ -183,3 +179,55 @@ function TripCardPage () {
 }
 
 export default TripCardPage;
+
+
+
+/* Tab 1
+
+                                
+*/
+
+
+/* Tab 2
+
+
+
+
+*/
+
+
+
+
+
+
+
+
+/*
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexWrap: 'wrap',
+                                    '& > :not(style)': {
+                                    m: 1,
+                                    width: 600,
+                                    height: 250,
+                                    },
+                                }}
+                                >
+                                <Paper elevation={5}>
+                                    <div>Trip Index: {singleTripData.tripIndex}</div>
+                                    <div>Location: {singleTripData.location}</div>
+                                    <div>Start Date: {moment(singleTripData.startDate).format('DD-MM-YYYY')}</div>
+                                    <div>End Date: {moment(singleTripData.endDate).format('DD-MM-YYYY')}</div>
+                                    <div>Activity: {singleTripData.activity}</div>
+                                    {
+                                        singleTripData.photos.map((photo)=> {
+                                            return (
+                                                <img className="trip-images" src={photo}/>
+                                            )
+                                        })
+                                    }
+                                    <div>Public tag: {singleTripData.public}</div>
+                                </Paper>
+                                </Box>
+                                */

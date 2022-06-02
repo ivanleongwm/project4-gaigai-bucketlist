@@ -18,6 +18,7 @@ const methodOverride = require('method-override');
 const path = require("path")
 const UserController = require("./controllers/userController")
 const TripController = require("./controllers/tripController")
+const postsController = require("./controllers/postsController")
 
 const app = express();
 const PORT = process.env.PORT ?? 4000;
@@ -115,6 +116,7 @@ app.use(methodOverride('_method'));
 app.use(express.json());
 app.use("/api/users", UserController);
 app.use("/api/trips", TripController);
+app.use("/api/posts", postsController);
 app.use(express.static("./frontend/build"))
 
 app.get("/api/hi", (req, res) => {
