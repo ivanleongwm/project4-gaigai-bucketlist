@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col, Container, Button, ListGroup } from 'react-bootstrap';
 import './UserProfile.css'
 import {useState, useEffect} from 'react'
+import { useNavigate } from "react-router-dom";
 
 function UserProfile() {
     const [profileDetails, setProfileDetails] = useState({
@@ -9,11 +10,12 @@ function UserProfile() {
             email: '',
             password: ''
     })
+    let navigate = useNavigate();
+
+    const jwt = sessionStorage.getItem("jwt");
+    const username = sessionStorage.getItem("username");
 
     const fetchUserProfileData = () => {
-        const jwt = sessionStorage.getItem("jwt");
-        const username = sessionStorage.getItem("username");
-
         fetch("/api/users/get-user-profile-info", { 
           method: "GET",
           headers: {
@@ -30,6 +32,30 @@ function UserProfile() {
             setProfileDetails(data.userDetails[0])
         });
       }
+
+    const deleteUserAccount = () => {
+        fetch(`api/users/delete/${username}`, { 
+            method: "DELETE",
+            headers: {
+              'Content-Type': 'application/json',
+              'token':jwt,
+              'username': username
+            },
+            body: JSON.stringify({
+                'username': username
+            })
+          })
+          .then((res) => {
+              return res.json()
+          })
+          .then((data) => {
+              if (data.deletedSuccess === "deletedSuccess") {
+                console.log("USER PROFILE DELETED",data)
+                window.location.href = "/"
+              }
+              
+          });
+    }
 
       useEffect(()=>{
         fetchUserProfileData()
@@ -62,7 +88,7 @@ function UserProfile() {
                             <ListGroup.Item>{'Password: ' + profileDetails.password}</ListGroup.Item>
                         </ListGroup>
                         <br/>
-                        <Button variant="danger">Delete User</Button>
+                        <Button variant="danger" onClick={()=>{deleteUserAccount()}}>Delete User</Button>
                         </div>
                     </Col>
                 </Row>

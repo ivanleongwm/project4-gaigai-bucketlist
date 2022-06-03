@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/Users")
 const jwt = require("jsonwebtoken");
-
+const Trip = require("../models/Trip")
+const Post = require("../models/Post")
 
 const verifyToken = (req, res, next) => {
   try {
@@ -84,5 +85,21 @@ router.get("/get-user-profile-info", verifyToken, async (req, res) => {
   res.status(200).send({userDetails});
 });
 
+//Delete route
+router.delete("/delete/:username", async (req, res) => {
+  const deletedUser = await User.findOneAndDelete({
+    username: req.params.username,
+  });
+
+  const deletedTrips = await Trip.findOneAndDelete({
+    username: req.params.username,
+  });
+
+  const deletedPost = await Post.findOneAndDelete({
+    username: req.params.username,
+  });
+
+  res.send({"deletedSuccess":"deletedSuccess"})
+});
 
 module.exports = router;

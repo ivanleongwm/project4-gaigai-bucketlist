@@ -12,6 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import TripCardPage from './components/HomePage/TripsContainer/TripCardPage/TripCardPage'
 import LoggedOutPage from './components/LoggedOutPage/LoggedOutPage'
 import UserProfile from './components/UserProfile/UserProfile'
+import SignUp from './components/SignUp/SignUp'
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState("");
@@ -28,7 +29,12 @@ function App() {
           <Route path="trips/:id" element={<TripCardPage/>}></Route>
           <Route path="user-profile" element={<UserProfile/>}></Route>
           </>
-          : <Route path="/*" element={<LoggedOutPage/>}></Route>
+          : 
+          <>
+            <Route path="/sign-up" element={<SignUp />}></Route>
+            <Route path="/*" element={<LoggedOutPage/>}></Route>
+          </>
+          
         }
         <Route path="login" element={<LoginForm setLoggedInUser={setLoggedInUser}/>}></Route>
     </Routes>

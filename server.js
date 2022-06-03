@@ -157,6 +157,8 @@ app.post("/api/logout", (req,res) => {
     res.clearCookie("NewCookie").send("cookie dead");
 });
 
+
+
 app.get("/*", (req,res) => {
   res.sendFile(path.join(__dirname, "./frontend/build/index.html"));
 })
