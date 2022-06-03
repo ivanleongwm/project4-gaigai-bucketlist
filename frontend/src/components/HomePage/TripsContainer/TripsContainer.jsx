@@ -5,6 +5,7 @@ import TripCard from './TripCard/TripCard'
 import './TripsContainer.css'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import Forum from '../Forum/Forum'
 
 function TripsContainer() {
     const [userTrips,setUserTrips] = useState([])
@@ -45,6 +46,7 @@ function TripsContainer() {
                 <TabList>
                 <Tab>Trips</Tab>
                 <Tab>Highlights</Tab>
+                <Tab>Forum</Tab>
                 </TabList>
                 <TabPanel>
                     {
@@ -53,8 +55,11 @@ function TripsContainer() {
                         })
                     }
                 </TabPanel>
-                            <TabPanel>
+                <TabPanel>
                     Hello
+                </TabPanel>
+                <TabPanel>
+                    <Forum/>
                 </TabPanel>
             </Tabs>
         </div>

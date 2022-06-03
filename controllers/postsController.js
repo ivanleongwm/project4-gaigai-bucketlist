@@ -59,7 +59,8 @@ router.post("/create-post", verifyToken, async (req, res) => {
         postBody : req.body.postBody,
         username : req.body.username,
         file:  req.body.file,
-        publicPrivate : req.body.publicPrivate,
+        location: req.body.location,
+        public : req.body.public,
     };
     try {
         const createdPost = await Post.create(newPost);
@@ -76,6 +77,32 @@ router.get("/get-user-posts", verifyToken, async (req, res) => {
     console.log("trip index fed",req.headers.tripindex)
     console.log("user trips found");
     res.status(200).send({userPosts});
+    });
+
+router.get("/get-public-posts", verifyToken, async (req, res) => {
+    // create neccesitites table with create trp index.
+    const publicPosts = await Post.find({public:true});
+    console.log("public trips found",publicPosts)
+    console.log("user trips found");
+    res.status(200).send({publicPosts});
+    });
+
+router.post("/write-comment", verifyToken, async (req, res) => {
+    // create neccesitites table with create trp index.
+        const updatePost = {
+            ...req.body
+        };
+        try {
+            const updatedPost = await Post.findOneAndUpdate(
+                {postTitle:updatePost.postTitle},
+                {...updatePost},
+                {new:true}
+                );
+                updatedPost.save().then(() => res.status(200).send({updatedPost}));
+            console.log("updated post", updatedPost);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
     });
 
 module.exports = router;

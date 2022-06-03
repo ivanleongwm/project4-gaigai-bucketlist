@@ -38,7 +38,9 @@ function InstaPostModal(props) {
               ...postCreateData,
               "file":postCreateData.file.substring(postCreateData.file.lastIndexOf('\\')+1),
               "username" : username,
-              "tripIndex" : id
+              "tripIndex" : id,
+              "location": props.location,
+              "public": props.public
             })
         })
         .then((res) => {

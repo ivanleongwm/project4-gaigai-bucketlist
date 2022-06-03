@@ -192,6 +192,8 @@ function TripCardPage () {
                                     <InstaPostModal
                                     show={postModalShow}
                                     onHide={() => setPostModalShow(false)}
+                                    location={singleTripData.location}
+                                    public={singleTripData.public}
                                     />
                                     <br/>
                                     {

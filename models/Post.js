@@ -8,7 +8,9 @@ const postSchema = new Schema({
     file: {type: String, required: false},
     postDate: {type: Date, required: false},
     postBody: {type: String, required: false},
-    public: {type: Boolean, required: false}
+    location: {type: String, required: false},
+    public: {type: Boolean, required: false},
+    comments: []
 });
 
 const Post = mongoose.model("post-details", postSchema);
