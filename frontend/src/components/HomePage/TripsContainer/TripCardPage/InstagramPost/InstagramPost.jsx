@@ -52,7 +52,7 @@ export default function InstagramPostCard({postData}) {
       <CardMedia
         component="img"
         height="194"
-        image={'/image/' + postData.file}
+        image={'https://project4-gaigai-bucketlist.herokuapp.com/image/' + postData.file}
         alt="Paella dish"
       />
       <CardContent>

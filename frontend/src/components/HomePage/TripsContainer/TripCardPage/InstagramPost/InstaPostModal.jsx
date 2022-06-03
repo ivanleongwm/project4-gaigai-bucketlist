@@ -58,7 +58,7 @@ function InstaPostModal(props) {
             headers: {
             'Content-Type': 'application/json',
             'token':jwt,
-            'username': username
+            'tripIndex': id
             }
         })
         .then((res) => {
@@ -123,20 +123,15 @@ function InstaPostModal(props) {
                     onChange={handleChange}
                     />
             </Form.Group>
-            <Form.Group controlId="formFile" className="mb-3">
-                <Form.Label>Default file input example</Form.Label>
-                <Form.Control type="file" size="sm" 
-                onChange={(event) => {console.log(event.target.value)}}/>
+            <UploadImages handleChange={handleChange} postCreateData={postCreateData}/>
+            <Form.Group as={Col} className="mb-3" id="publicPrivate">
+            <Form.Check 
+                type="switch" 
+                label="Public Post" 
+                value={postCreateData.publicPrivate} // true false not working
+                onChange={handleChange}
+            />
             </Form.Group>
-                <Form.Group as={Col} className="mb-3" id="publicPrivate">
-                <Form.Check 
-                    type="switch" 
-                    label="Public Post" 
-                    value={postCreateData.publicPrivate} // true false not working
-                    onChange={handleChange}
-                />
-                </Form.Group>
-                <UploadImages handleChange={handleChange} postCreateData={postCreateData}/>
             <Button variant="primary" type="submit" onClick={(event) => {handleSubmit(event)}}>
                 Submit
             </Button>

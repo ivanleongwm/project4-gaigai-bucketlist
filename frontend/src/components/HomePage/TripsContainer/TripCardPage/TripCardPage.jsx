@@ -121,7 +121,8 @@ function TripCardPage () {
             headers: {
             'Content-Type': 'application/json',
             'token':jwt,
-            'username': username
+            'username': username,
+            'tripIndex': id
             }
         })
         .then((res) => {

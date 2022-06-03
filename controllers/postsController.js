@@ -72,7 +72,8 @@ router.post("/create-post", verifyToken, async (req, res) => {
 
 router.get("/get-user-posts", verifyToken, async (req, res) => {
     // create neccesitites table with create trp index.
-    const userPosts = await Post.find({username:req.headers.username});
+    const userPosts = await Post.find({tripIndex:req.headers.tripindex});
+    console.log("trip index fed",req.headers.tripindex)
     console.log("user trips found");
     res.status(200).send({userPosts});
     });
