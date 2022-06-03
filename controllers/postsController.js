@@ -20,7 +20,7 @@ const verifyToken = (req, res, next) => {
   
       next();
     } catch (error) {
-      res.sendStatus(403);
+        res.redirect('/intro');
     }
   };
   
@@ -86,6 +86,22 @@ router.get("/get-public-posts", verifyToken, async (req, res) => {
     console.log("user trips found");
     res.status(200).send({publicPosts});
     });
+
+router.get("/get-all-user-post-images", verifyToken, async (req, res) => {
+    // create neccesitites table with create trp index.
+    const allUserPosts = await Post.find({username:req.headers.username});
+    const userImageArray = []
+    allUserPosts.map((post)=>{
+        userImageArray.push({
+            "file":post.file,
+            "postTitle": post.postTitle,
+            "postBody": post.postBody
+        })
+    })
+    console.log("all user post images found",userImageArray)
+    res.status(200).send({userImageArray});
+    });
+
 
 router.post("/write-comment", verifyToken, async (req, res) => {
     // create neccesitites table with create trp index.

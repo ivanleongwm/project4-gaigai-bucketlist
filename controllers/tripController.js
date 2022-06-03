@@ -20,7 +20,7 @@ const verifyToken = (req, res, next) => {
   
       next();
     } catch (error) {
-      res.sendStatus(403);
+      res.redirect('/intro');
     }
   };
 

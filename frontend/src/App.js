@@ -10,21 +10,29 @@ import LoginForm from './components/Login/Login'
 import Home from './components/HomePage/Home'
 import "bootstrap/dist/css/bootstrap.min.css";
 import TripCardPage from './components/HomePage/TripsContainer/TripCardPage/TripCardPage'
+import LoggedOutPage from './components/LoggedOutPage/LoggedOutPage'
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState("");
+  const username = sessionStorage.getItem("username");
 
   return (
     <BrowserRouter>
     <HeaderBar loggedInUser={loggedInUser}/>
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
+    <Routes>
+        {
+          username ?
+          <>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="trips/:id" element={<TripCardPage/>}></Route>
+          </>
+          : <Route path="/*" element={<LoggedOutPage/>}></Route>
+        }
         <Route path="login" element={<LoginForm setLoggedInUser={setLoggedInUser}/>}></Route>
-        <Route path="trips/:id" element={<TripCardPage/>}></Route>
-      </Routes>
+    </Routes>
     </BrowserRouter>
   );
 }
-
+//<Route path="intro" element={<LoggedOutPage/>}></Route>
 
 export default App;

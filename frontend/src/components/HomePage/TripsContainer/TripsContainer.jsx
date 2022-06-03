@@ -6,6 +6,7 @@ import './TripsContainer.css'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import Forum from '../Forum/Forum'
+import Highlights from '../Highlights/Highlights'
 
 function TripsContainer() {
     const [userTrips,setUserTrips] = useState([])
@@ -56,7 +57,7 @@ function TripsContainer() {
                     }
                 </TabPanel>
                 <TabPanel>
-                    Hello
+                    <Highlights/>
                 </TabPanel>
                 <TabPanel>
                     <Forum/>
