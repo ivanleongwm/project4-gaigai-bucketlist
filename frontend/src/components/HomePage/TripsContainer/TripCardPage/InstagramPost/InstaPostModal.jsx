@@ -11,7 +11,7 @@ function InstaPostModal(props) {
         postTitle : "Happy day at ala restaurant",
         postDate : today,
         postBody: "a wonderous tour of the world",
-        //formGridThumbnailUrl : "https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        file : "",
         publicPrivate : true
     }); 
     const [userPosts, setUserPosts] = useState({})
@@ -36,6 +36,7 @@ function InstaPostModal(props) {
           },
           body: JSON.stringify({
               ...postCreateData,
+              "file":postCreateData.file.substring(postCreateData.file.lastIndexOf('\\')+1),
               "username" : username,
               "tripIndex" : id
             })
@@ -135,7 +136,7 @@ function InstaPostModal(props) {
                     onChange={handleChange}
                 />
                 </Form.Group>
-                <UploadImages/>
+                <UploadImages handleChange={handleChange} postCreateData={postCreateData}/>
             <Button variant="primary" type="submit" onClick={(event) => {handleSubmit(event)}}>
                 Submit
             </Button>

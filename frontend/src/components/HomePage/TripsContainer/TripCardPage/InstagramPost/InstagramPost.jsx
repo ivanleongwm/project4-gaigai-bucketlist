@@ -52,7 +52,7 @@ export default function InstagramPostCard({postData}) {
       <CardMedia
         component="img"
         height="194"
-        image="https://images.unsplash.com/photo-1588276552401-30058a0fe57b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1423&q=80"
+        image={'/image/' + postData.file}
         alt="Paella dish"
       />
       <CardContent>

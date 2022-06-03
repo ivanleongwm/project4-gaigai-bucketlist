@@ -23,6 +23,8 @@ const postsController = require("./controllers/postsController")
 const app = express();
 const PORT = process.env.PORT ?? 4000;
 const mongoURI = process.env.MONGO_URI;
+
+const {stringify} = require('flatted');
 // const db = mongoose.connection;
 
 mongoose.connect(mongoURI, {}, () => {
@@ -50,7 +52,8 @@ const storage = new GridFsStorage({
         if (err) {
           return reject(err);
         }
-        const filename = buf.toString('hex') + path.extname(file.originalname);
+        const filename = file.originalname
+        //buf.toString('hex') + path.extname(file.originalname);
         const fileInfo = {
           filename: filename,
           bucketName: 'uploads'
@@ -64,7 +67,8 @@ const upload = multer({ storage });
 
 app.post('/upload', upload.single('file'), (req, res) => {
   // res.json({ file: req.file });
-  res.redirect('/');
+  console.log("image upload request",req);
+  //res.send({ filename: req });
 });
 
 app.get('/files', (req, res) => {

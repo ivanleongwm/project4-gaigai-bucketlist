@@ -58,6 +58,7 @@ router.post("/create-post", verifyToken, async (req, res) => {
         postDate : req.body.postDate,
         postBody : req.body.postBody,
         username : req.body.username,
+        file:  req.body.file,
         publicPrivate : req.body.publicPrivate,
     };
     try {
