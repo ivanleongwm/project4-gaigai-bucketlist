@@ -2,9 +2,15 @@ import React from "react";
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import { Link } from "react-router-dom"
 
-
 function HeaderContainer() {
+    
     const loggedInUser = sessionStorage.getItem("username");
+
+    const handleLogout = () => {
+        sessionStorage.removeItem("jwt");
+        sessionStorage.removeItem("username");
+        window.location.href = "/"
+    }
 
     return (
         <div className="header-container">
@@ -23,9 +29,9 @@ function HeaderContainer() {
                     {
                         loggedInUser ? 
                         <>
-                        <Nav.Link >Log Out</Nav.Link>
+                        <Nav.Link as={Link} to="/" onClick={()=>{handleLogout()}}>Log Out</Nav.Link>
                         <Nav.Link as={Link} to="/" >Trips</Nav.Link>
-                        <Nav.Link as={Link} to="profile" >Profile</Nav.Link>
+                        <Nav.Link as={Link} to="user-profile" >Profile</Nav.Link>
                         </> 
                         :
                         <>

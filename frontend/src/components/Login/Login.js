@@ -1,11 +1,14 @@
 import React from "react";
 import { Form , Button, Row , Col} from "react-bootstrap"
 import { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 
 function LoginForm({setLoggedInUser}) {
     const [username, setUsername] = useState("Michael");
     const [password, setPassword] = useState("123456");
+    const [wrongPassword,setWrongPassword] = useState(false);
+
+    let navigate = useNavigate();
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -24,10 +27,17 @@ function LoginForm({setLoggedInUser}) {
             return res.json()
         })
         .then((data) => {
-            console.log("data",data.jwt)
-            sessionStorage.setItem("jwt", data.jwt);
-            sessionStorage.setItem("username", username);
-            setLoggedInUser(username)
+            if (data.unauthorised !== 'unauthorised') {
+                console.log("data",data)
+                sessionStorage.setItem("jwt", data.jwt);
+                sessionStorage.setItem("username", username);
+                setLoggedInUser(username)
+                setTimeout(()=> {
+                    navigate("/");
+                  }, 1000);
+            } else {
+                setWrongPassword(true)
+            }
         });
       }    
 
@@ -46,9 +56,11 @@ function LoginForm({setLoggedInUser}) {
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" onChange={(event) => setPassword(event.target.value)}/>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
-                </Form.Group>
+                {
+                    wrongPassword ?
+                    <div style={{color:'red'}}>Incorrect Username or Password, please try again.</div> :
+                    <div></div>
+                }
                 <Button variant="primary" type="submit" onClick={(event) => {handleLogin(event)}}>
                     Submit
                 </Button>
