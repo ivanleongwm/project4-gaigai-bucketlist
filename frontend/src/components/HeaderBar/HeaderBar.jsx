@@ -3,7 +3,9 @@ import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import { Link } from "react-router-dom"
 
 
-function HeaderContainer({loggedInUser}) {
+function HeaderContainer() {
+    const loggedInUser = sessionStorage.getItem("username");
+
     return (
         <div className="header-container">
             <Navbar bg="light" expand="lg">
