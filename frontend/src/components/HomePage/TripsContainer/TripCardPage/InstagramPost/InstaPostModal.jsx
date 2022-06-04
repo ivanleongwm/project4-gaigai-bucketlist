@@ -148,7 +148,7 @@ function InstaPostModal(props) {
             <Button variant="primary" type="submit" onClick={(event) => {handleSubmit(event)}}>
                 Submit
             </Button>
-          <Button variant="outline-primary" onClick={props.onHide}>Close</Button>
+          <Button variant="outline-primary" onClick={()=>{handleClick()}}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
