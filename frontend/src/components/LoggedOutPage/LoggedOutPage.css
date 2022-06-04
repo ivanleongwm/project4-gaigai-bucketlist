@@ -27,3 +27,8 @@
     height: 300px;
     text-align:center;
 }
+
+.description-for-intro {
+    text-align: left;
+    width: 100px;
+}

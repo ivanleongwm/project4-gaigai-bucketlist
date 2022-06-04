@@ -54,7 +54,7 @@ function InstaPostModal(props) {
         })
         .then((res) => {
             setTimeout(()=>{
-            //window.location.reload()
+            window.location.reload()
             },1000)
             return res.json()
         })
@@ -139,7 +139,7 @@ function InstaPostModal(props) {
             <Form.Check 
                 type="switch" 
                 label=" Public Post (> Right to show post to community)" 
-                onChange={handleClick}
+                onClick={()=>{handleClick()}}
             />
             </Form.Group>
         </Form>
@@ -148,7 +148,7 @@ function InstaPostModal(props) {
             <Button variant="primary" type="submit" onClick={(event) => {handleSubmit(event)}}>
                 Submit
             </Button>
-          <Button variant="outline-primary" onClick={()=>{handleClick()}}>Close</Button>
+          <Button variant="outline-primary" onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );

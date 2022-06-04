@@ -45,6 +45,8 @@ function LoggedOutPage() {
                     {
                         showFindOutMore ?
                         <div className="center-box">
+                            <br/>
+                            <br/>
                             <h1>GaiGai</h1>
                             <h4>A trip planning diary</h4>
                             <button id="next" className="button" onClick={(event) => {next(event)}}>
@@ -56,8 +58,34 @@ function LoggedOutPage() {
                     }
                  </div>  
             </div>
-            <div className="description">
-            Hello
+            <div className="description-for-intro">
+                <div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <b>Prepare a packing list</b>
+                for travelling. <br/>A standard list that is modifiable.
+                </div>
+                <br/>
+                <br/>
+                <div>
+                <b>Creating and Recording Trips</b>
+                <br/>Create a log for each trip and <br/>upload photos to keep memories.
+                </div>
+                <br/>
+                <br/>
+                <div>
+                <b>Sharing Posts with the Community, 
+                    <br/>Exploring Trip Ideas</b>
+                <br/>Choose whether to keep posts private 
+                <br/>or public to share then with the <br/>community.
+                </div>
+                <br/>
+                <br/>
+                <div>Click <u>SIGN UP</u> Above to find out more</div>
             </div>
         </Slider>
     </div>  
