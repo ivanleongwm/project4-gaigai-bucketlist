@@ -15,12 +15,21 @@ function InstaPostModal(props) {
         publicPrivate : true
     }); 
     const [userPosts, setUserPosts] = useState({})
+    const [publicPost, setPublicPost] =  useState(false)
     // handle change event
     const handleChange = (e) => {
         e.preventDefault(); // prevent the default action
         setPostCreateData({...postCreateData, [e.target.id]:e.target.value}); // set name to e.target.value (event)
         console.log(postCreateData); 
     };
+
+    const handleClick = (publicPost,setPublicPost) => {
+        if (publicPost) {
+            setPublicPost(false)
+        } else {
+            setPublicPost(true)
+        }
+    }
 
     //post fetch call to create data in database, on submit
     const handleSubmit = (event) => {
@@ -40,10 +49,13 @@ function InstaPostModal(props) {
               "username" : username,
               "tripIndex" : id,
               "location": props.location,
-              "public": props.public
+              "public": publicPost
             })
         })
         .then((res) => {
+            setTimeout(()=>{
+            //window.location.reload()
+            },1000)
             return res.json()
         })
         .then((data) => {
@@ -90,12 +102,13 @@ function InstaPostModal(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            New Story
+            Create New Post
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Form>
             <Form.Group className="mb-3" controlId="postTitle">
+                <Form.Label>  Title</Form.Label>
                 <Form.Control 
                     type="text" 
                     placeholder="Title of Post" 
@@ -103,7 +116,8 @@ function InstaPostModal(props) {
                     onChange={handleChange}
                     />
             </Form.Group>
-            <Form.Group as={Col} controlId="postDate">
+            <Form.Group controlId="postDate">
+            <Form.Label> Date</Form.Label>
                 <Form.Control 
                     type="date" 
                     placeholder="Pick Start Date" 
@@ -111,15 +125,10 @@ function InstaPostModal(props) {
                     onChange={handleChange}
                 />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formGridLocation">
-                <Form.Select defaultValue="Choose Location...">
-                    <option>Choose...</option>
-                    <option>...</option>
-                </Form.Select>
-            </Form.Group>
             <Form.Group className="mb-3" controlId="postBody">
+                <Form.Label>  Title</Form.Label>
                 <Form.Control 
-                    type="textarea" 
+                    type="text" 
                     placeholder="Brief title of trip" 
                     value={postCreateData.postBody} 
                     onChange={handleChange}
@@ -129,18 +138,17 @@ function InstaPostModal(props) {
             <Form.Group as={Col} className="mb-3" id="publicPrivate">
             <Form.Check 
                 type="switch" 
-                label="Public Post" 
-                value={postCreateData.publicPrivate} // true false not working
-                onChange={handleChange}
+                label=" Public Post (> Right to show post to community)" 
+                onChange={handleClick}
             />
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={(event) => {handleSubmit(event)}}>
-                Submit
-            </Button>
         </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
+            <Button variant="primary" type="submit" onClick={(event) => {handleSubmit(event)}}>
+                Submit
+            </Button>
+          <Button variant="outline-primary" onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );

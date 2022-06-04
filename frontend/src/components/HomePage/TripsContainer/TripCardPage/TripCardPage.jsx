@@ -156,6 +156,7 @@ function TripCardPage () {
                             <Tab>Stories</Tab>
                             </TabList>
                             <TabPanel>
+                                <div className="trips-container"><div className="trip-cards-container">
                             <form
                                 onSubmit={(event) => {
                                     event.preventDefault()
@@ -183,8 +184,10 @@ function TripCardPage () {
                                             onNeccesitiesChange={onNeccesitiesChange}/>
                                         })
                                 }
+                                </div></div>
                             </TabPanel>
                             <TabPanel>
+                            <div className="trips-container"><div className="trip-cards-container">
                                 <div className="stories-container">
                                     <Button className="create-new-trip-button" variant="primary" onClick={() => setPostModalShow(true)}>
                                         CREATE NEW POST >
@@ -202,6 +205,7 @@ function TripCardPage () {
                                         })
                                     }
                                 </div>
+                                </div></div>
                             </TabPanel>
                         </Tabs>
                     </Col>

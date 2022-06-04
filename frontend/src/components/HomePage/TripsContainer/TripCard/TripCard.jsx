@@ -18,7 +18,7 @@ function TripCard ({tripDetails}) {
                     <Card.Text>
                     {tripDetails.description}
                     </Card.Text>
-                    <Button variant="primary" href={"/trips/" + tripDetails.tripIndex}>Go somewhere</Button>
+                    <Button variant="primary" href={"/trips/" + tripDetails.tripIndex}>Edit</Button>
                 </Card.Body>
             </Card>
         </div> 

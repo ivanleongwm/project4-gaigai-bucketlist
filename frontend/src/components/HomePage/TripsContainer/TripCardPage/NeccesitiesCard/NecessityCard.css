@@ -1,6 +1,7 @@
 .necessity-card {
     border:1px solid black;
     display: inline-block;
+	vertical-align: top;
     margin: 10px;
     width: 450px;
     padding: 20px;

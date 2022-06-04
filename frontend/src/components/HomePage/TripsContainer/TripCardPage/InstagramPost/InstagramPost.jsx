@@ -34,11 +34,12 @@ export default function InstagramPostCard({postData}) {
   };
 
   return (
+    <div className="instagram-instagram-post-card">
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            I
           </Avatar>
         }
         action={
@@ -106,5 +107,6 @@ export default function InstagramPostCard({postData}) {
         </CardContent>
       </Collapse>
     </Card>
+    </div>
   );
 }

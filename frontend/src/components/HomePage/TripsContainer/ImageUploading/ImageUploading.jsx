@@ -1,5 +1,6 @@
 import React from 'react';
 import {parse,stringify} from 'flatted';
+import './ImageUploading.css'
 
 function UploadImages({postCreateData,handleChange}) {
 /*
@@ -38,13 +39,13 @@ function UploadImages({postCreateData,handleChange}) {
         <div className="m-3">
             <form action="/upload" method="POST" enctype="multipart/form-data">
                 <div class="custom-file mb-3">
-                    <input type="file" name="file" id="file" class="custom-file-input" 
+                    <label for="file" class="custom-file-label">Photo for Post: </label>
+                    <input type="file" name="file" id="file" className="custom-file-input" 
                     // onChange={(event) => {upload(event.target.files[0])}} // true false not working
                     onChange={handleChange}
                      />
-                    <label for="file" class="custom-file-label">Choose YOUR File</label>
+                    <input type="submit" value="Submit" class="btn btn-primary btn-block post-submit-button"/>
                 </div>
-                <input type="submit" value="Submit" class="btn btn-primary btn-block"/>
             </form>
         </div>
       );

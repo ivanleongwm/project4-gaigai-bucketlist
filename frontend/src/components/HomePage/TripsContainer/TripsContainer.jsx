@@ -1,6 +1,6 @@
 import React from "react";
 import {useState, useEffect} from 'react'
-import { Button } from 'react-bootstrap';
+import { Container , Row, Card, Col } from 'react-bootstrap';
 import TripCard from './TripCard/TripCard'
 import './TripsContainer.css'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -40,7 +40,7 @@ function TripsContainer() {
     useEffect(()=>{
         console.log("user trips data fetched",userTrips)
     },[userTrips])
-
+    
     return (
         <div className="trips-container">
             <Tabs>
@@ -50,12 +50,20 @@ function TripsContainer() {
                 <Tab>Forum</Tab>
                 </TabList>
                 <TabPanel>
-                    {
-                        userTrips.map((tripDetails, index)=>{
-                            return <TripCard key={index} tripDetails={tripDetails}/>
-                        })
-                    }
-                </TabPanel>
+                <Container className="pt-5">
+                   <Row className="align-items-center">
+                        {
+                            userTrips.map((tripDetails, index)=>{
+                            return (
+                                <Col>
+                                    <TripCard key={index} tripDetails={tripDetails}/>
+                                </Col>
+                            )
+                         })
+                        }
+                    </Row> 
+                    </Container>
+                    </TabPanel>
                 <TabPanel>
                     <Highlights/>
                 </TabPanel>
@@ -68,3 +76,22 @@ function TripsContainer() {
 }
 
 export default TripsContainer;
+
+/*
+
+                    <TabPanel>
+                            {
+                                userTrips.map((tripDetails, index)=>{
+                                return <TripCard key={index} tripDetails={tripDetails}/>
+                            })
+                            }
+                    </TabPanel>
+                
+                <TabPanel>
+                    <Highlights/>
+                </TabPanel>
+                <TabPanel>
+                    <Forum/>
+                </TabPanel>
+                </div>
+                            */

@@ -19,7 +19,10 @@ function Home() {
                                 
                                 <div className="image">
                                     <div className="black-filter">
+                                        <br/>
+                                        <br/>
                                         <h2>Trips</h2>
+                                        <br/>
                                         <Button className="create-new-trip-button" variant="primary" onClick={() => setModalShow(true)}>
                                             CREATE NEW TRIP >
                                         </Button>

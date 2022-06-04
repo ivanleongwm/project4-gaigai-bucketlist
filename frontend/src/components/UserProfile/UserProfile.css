@@ -13,7 +13,7 @@
   
   #parallelogram {
     width: 500px;
-    height: 700px;
+    height: 690px;
     margin: 0 0 0 -20px;
     padding-left: 0px;
     left: -25px;
@@ -37,18 +37,12 @@
     -moz-transform: skew(-20deg);
     -o-transform: skew(-20deg);
     text-align:left;
-    line-height: 200px;
   }
   
   .black-filter {
     background-image: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,0.65));
     padding-left:170px;
     height: 100%;
-  }
-  
-  .create-new-trip-button {
-    margin-top:10px;
-    padding-top:40px;
   }
   
   a:link {

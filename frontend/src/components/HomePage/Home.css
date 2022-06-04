@@ -37,7 +37,6 @@
   -moz-transform: skew(-20deg);
   -o-transform: skew(-20deg);
   text-align:left;
-  line-height: 200px;
 }
 
 .black-filter {
@@ -46,12 +45,11 @@
   height: 100%;
 }
 
-.create-new-trip-button {
-  margin-top:10px;
-  padding-top:40px;
-}
-
 a:link {
   text-decoration: none;
+  color: white;
+}
+
+h2 {
   color: white;
 }

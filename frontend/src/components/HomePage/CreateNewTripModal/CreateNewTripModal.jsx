@@ -51,7 +51,7 @@ function MyVerticallyCenteredModal(props) {
     return (
       <Modal
         {...props}
-        size="lg"
+        size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
@@ -86,14 +86,16 @@ function MyVerticallyCenteredModal(props) {
 
             <Form.Group className="mb-3" controlId="formGridLocation">
                 <Form.Label>Location</Form.Label>
-                <Form.Select defaultValue="Choose...">
-                    <option>Choose...</option>
-                    <option>...</option>
-                </Form.Select>
+                <Form.Control 
+                    type="text" 
+                    placeholder="Location of trip" 
+                    value={tripCreateData.formGridLocation} 
+                    onChange={handleChange}
+                    />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formGridActivityTitle">
-                <Form.Label>Activity Title</Form.Label>
+                <Form.Label>Title of Activity</Form.Label>
                 <Form.Control 
                     type="text" 
                     placeholder="Brief title of trip" 
@@ -110,30 +112,20 @@ function MyVerticallyCenteredModal(props) {
                     onChange={handleChange}
                 />
             </Form.Group>
-            <Row className="mb-3">
-                <Form.Group as={Col} controlId="formGridThumbnailUrl">
+            <Form.Group className="mb-3" controlId="formGridThumbnailUrl">
                 <Form.Label>Thumbnail Url</Form.Label>
                 <Form.Control
                     value={tripCreateData.formGridThumbnailUrl} 
                     onChange={handleChange}
                 />
                 </Form.Group>
-                <Form.Group as={Col} className="mb-3" id="formGridCheckbox">
-                <Form.Check 
-                    type="switch" 
-                    label="Public Post" 
-                    value={tripCreateData.formGridCheckbox} // true false not working
-                    onChange={handleChange}
-                />
-                </Form.Group>
-            </Row>
-            <Button variant="primary" type="submit" onClick={(event) => {handleSubmit(event)}}>
-                Submit
-            </Button>
         </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
+            <Button variant="primary" type="submit" onClick={(event) => {handleSubmit(event)}}>
+                Submit
+            </Button>
+          <Button variant="outline-primary" onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
